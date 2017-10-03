@@ -15,10 +15,12 @@ import android.view.MenuItem;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
+    private static final  String SELECTED_ITEM_ID ="selected_item_id" ;
     private Toolbar toolbar;
     private NavigationView mDrawer;
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle drawerToggle;
+    private  int mSelectedId;
 
 
     @Override
@@ -45,6 +47,38 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         mDrawerLayout.addDrawerListener(drawerToggle);
         drawerToggle.syncState();
 
+        //checking if the app is coming from a rotation or is being created for the first time
+        mSelectedId=savedInstanceState==null? R.id.navigation_item_2:savedInstanceState.getInt(SELECTED_ITEM_ID);
+
+        navigate(mSelectedId);
+
+    }
+
+    private void navigate(int mSelectedId) {
+        Intent intent=null;
+
+
+        if(mSelectedId==R.id.navigation_item_2){
+
+            mDrawerLayout.closeDrawer(GravityCompat.START);   //Closing the navigation drawer
+            intent= new Intent(this,Main2Activity.class);
+            startActivity(intent);
+
+        } if(mSelectedId==R.id.navigation_item_3){
+
+            mDrawerLayout.closeDrawer(GravityCompat.START);
+            intent= new Intent(this,Main3Activity.class);
+            startActivity(intent);
+
+        } if(mSelectedId==R.id.navigation_item_5){
+
+            mDrawerLayout.closeDrawer(GravityCompat.START);
+            intent= new Intent(this,Main5Activity.class);
+            startActivity(intent);
+
+        }
+
+
     }
 
     //needs to be called for the drawer toggle
@@ -58,31 +92,18 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
-        Intent intent=null;
+        item.setChecked(true);
+        mSelectedId=item.getItemId();
 
-        if(item.getItemId()==R.id.navigation_item_2){
+        navigate(mSelectedId);
 
-            mDrawerLayout.closeDrawer(GravityCompat.START);   //Closing the navigation drawer
-            intent= new Intent(this,Main2Activity.class);
-            startActivity(intent);
-            return true;
+        return true;
+    }
 
-        } if(item.getItemId()==R.id.navigation_item_3){
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {   //for remember what item was selected
+        super.onSaveInstanceState(outState);
 
-            mDrawerLayout.closeDrawer(GravityCompat.START);
-            intent= new Intent(this,Main3Activity.class);
-            startActivity(intent);
-            return true;
-
-        } if(item.getItemId()==R.id.navigation_item_5){
-
-            mDrawerLayout.closeDrawer(GravityCompat.START);
-            intent= new Intent(this,Main5Activity.class);
-            startActivity(intent);
-            return true;
-
-        }
-
-        return false;
+        outState.putInt(SELECTED_ITEM_ID,mSelectedId);
     }
 }
