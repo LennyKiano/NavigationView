@@ -1,7 +1,10 @@
 package com.example.leonk.navigationviewdemo;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
+import android.preference.Preference;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -16,12 +19,13 @@ import android.view.MenuItem;
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private static final  String SELECTED_ITEM_ID ="selected_item_id" ;
+    private static final String FIRST_TIME ="first_time" ;
     private Toolbar toolbar;
     private NavigationView mDrawer;
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle drawerToggle;
     private  int mSelectedId;
-    
+    private Boolean mUserSawDrawer=false;
 
 
     @Override
@@ -53,6 +57,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         navigate(mSelectedId);
 
+        if(!didUserSeeDRawer()){  //user has not seen drawer
+
+            showDrawer();
+            markDrawerAsSeen();
+
+        }else {
+
+            hideDrawer();
+        }
+
     }
 
     private void navigate(int mSelectedId) {
@@ -62,13 +76,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         if(mSelectedId==R.id.navigation_item_2){
 
             mDrawerLayout.closeDrawer(GravityCompat.START);   //Closing the navigation drawer
-            intent= new Intent(this,Main2Activity.class);
+            intent= new Intent(this, Main2Activity.class);
             startActivity(intent);
 
         } if(mSelectedId==R.id.navigation_item_3){
 
             mDrawerLayout.closeDrawer(GravityCompat.START);
-            intent= new Intent(this,Main3Activity.class);
+            intent= new Intent(this, Main3Activity.class);
             startActivity(intent);
 
         } if(mSelectedId==R.id.navigation_item_5){
@@ -118,5 +132,30 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
             super.onBackPressed();   //default behavior
         }
+    }
+
+    private boolean didUserSeeDRawer(){
+
+        SharedPreferences sharedPreferences= PreferenceManager.getDefaultSharedPreferences(this);
+        sharedPreferences.getBoolean(FIRST_TIME,false);
+
+        return mUserSawDrawer;
+    }
+
+    private void showDrawer(){
+
+        mDrawerLayout.openDrawer(GravityCompat.START);
+    }
+    private void hideDrawer(){
+
+        mDrawerLayout.closeDrawer(GravityCompat.START);
+    }
+
+    private void markDrawerAsSeen(){  //updating shared preferences that the user has already seen the drawer before
+
+        SharedPreferences sharedPreferences= PreferenceManager.getDefaultSharedPreferences(this);
+        mUserSawDrawer=true;
+        sharedPreferences.edit().putBoolean(FIRST_TIME,mUserSawDrawer).apply();
+
     }
 }
