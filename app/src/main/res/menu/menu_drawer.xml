@@ -1,26 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item
-        android:id="@+id/navigation_item_1"
-        android:icon="@drawable/ic_account_circle"
+    <group
+        android:id="@+id/group_1"
+        android:checkableBehavior="single">
 
-        android:title="@string/navigation_item_1" />
-    <item
-        android:id="@+id/navigation_item_2"
-        android:icon="@drawable/ic_mail"
-        android:title="@string/navigation_item_2" />
-    <item
-        android:id="@+id/navigation_item_3"
-        android:icon="@drawable/ic_movie"
-        android:title="@string/navigation_item_3" />
-    <item
-        android:id="@+id/navigation_item_4"
-        android:icon="@drawable/ic_today"
-        android:title="@string/navigation_item_4" />
-    <item
-        android:id="@+id/navigation_item_5"
-        android:icon="@drawable/ic_cloud"
-        android:title="@string/navigation_item_5" />
+        <item
+            android:id="@+id/navigation_item_1"
+            android:icon="@drawable/ic_account_circle"
+
+            android:title="@string/navigation_item_1">
+            <menu>
+
+                <item
+                    android:id="@+id/navigation_item_2"
+                    android:icon="@drawable/ic_mail"
+                    android:title="@string/navigation_item_2" />
+
+                <item
+                    android:id="@+id/navigation_item_3"
+                    android:icon="@drawable/ic_movie"
+                    android:title="@string/navigation_item_3" />
+            </menu>
+        </item>
+
+
+    </group>
+
+    <group
+        android:id="@+id/group_2"
+        android:checkableBehavior="single">
+
+
+        <item
+            android:id="@+id/navigation_item_4"
+            android:icon="@drawable/ic_today"
+            android:title="@string/navigation_item_4">
+            <menu>
+                <item
+                    android:id="@+id/navigation_item_5"
+                    android:icon="@drawable/ic_cloud"
+                    android:title="@string/navigation_item_5" />
+
+
+            </menu>
+        </item>
+
+    </group>
+
 
 </menu>
