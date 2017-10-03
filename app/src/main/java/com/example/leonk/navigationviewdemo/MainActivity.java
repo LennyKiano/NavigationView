@@ -21,6 +21,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle drawerToggle;
     private  int mSelectedId;
+    
 
 
     @Override
@@ -105,5 +106,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         super.onSaveInstanceState(outState);
 
         outState.putInt(SELECTED_ITEM_ID,mSelectedId);
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (mDrawerLayout.isDrawerOpen(GravityCompat.START)){  //checking if the drawer is open and simply closing it
+
+            mDrawerLayout.closeDrawer(GravityCompat.START);
+
+        }else {
+
+            super.onBackPressed();   //default behavior
+        }
     }
 }
