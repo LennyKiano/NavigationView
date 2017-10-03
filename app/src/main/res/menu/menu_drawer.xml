@@ -3,18 +3,24 @@
 
     <item
         android:id="@+id/navigation_item_1"
+        android:icon="@drawable/ic_account_circle"
+
         android:title="@string/navigation_item_1" />
     <item
         android:id="@+id/navigation_item_2"
+        android:icon="@drawable/ic_mail"
         android:title="@string/navigation_item_2" />
     <item
         android:id="@+id/navigation_item_3"
+        android:icon="@drawable/ic_movie"
         android:title="@string/navigation_item_3" />
     <item
         android:id="@+id/navigation_item_4"
+        android:icon="@drawable/ic_today"
         android:title="@string/navigation_item_4" />
     <item
         android:id="@+id/navigation_item_5"
+        android:icon="@drawable/ic_cloud"
         android:title="@string/navigation_item_5" />
 
 </menu>
