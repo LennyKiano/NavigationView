@@ -4,15 +4,27 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/drawer_layout"
     tools:context="com.example.leonk.navigationviewdemo.MainActivity">
 
 
-    <FrameLayout
+    <LinearLayout
+        android:orientation="vertical"
         android:id="@+id/main_content"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-    </FrameLayout>
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/app_bar"
+            android:background="@color/primary"
+            app:theme="@style/Base.ThemeOverlay.AppCompat.Dark"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="?attr/actionBarSize"
+
+            />
+
+    </LinearLayout>
 
     <android.support.design.widget.NavigationView
         android:id="@+id/main_drawer"
