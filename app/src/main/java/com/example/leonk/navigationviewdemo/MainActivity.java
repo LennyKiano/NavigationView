@@ -53,47 +53,41 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         drawerToggle.syncState();
 
         //checking if the app is coming from a rotation or is being created for the first time
-        mSelectedId=savedInstanceState==null? R.id.navigation_item_2:savedInstanceState.getInt(SELECTED_ITEM_ID);
+        mSelectedId = savedInstanceState == null ? R.id.navigation_item_1 : savedInstanceState.getInt(SELECTED_ITEM_ID);
 
         navigate(mSelectedId);
 
-        if(!didUserSeeDRawer()){  //user has not seen drawer
-
+        if (!didUserSeeDrawer()) {
             showDrawer();
-            markDrawerAsSeen();
-
-        }else {
-
+            markDrawerSeen();
+        } else {
             hideDrawer();
         }
 
     }
 
+
+
+
+
+
     private void navigate(int mSelectedId) {
-        Intent intent=null;
-
-
-        if(mSelectedId==R.id.navigation_item_2){
-
-            mDrawerLayout.closeDrawer(GravityCompat.START);   //Closing the navigation drawer
-            intent= new Intent(this, Main2Activity.class);
-            startActivity(intent);
-
-        } if(mSelectedId==R.id.navigation_item_3){
-
+        Intent intent = null;
+        if (mSelectedId == R.id.navigation_item_2) {
             mDrawerLayout.closeDrawer(GravityCompat.START);
-            intent= new Intent(this, Main3Activity.class);
+            intent = new Intent(this, SecondActivity.class);
             startActivity(intent);
-
-        } if(mSelectedId==R.id.navigation_item_5){
-
-            mDrawerLayout.closeDrawer(GravityCompat.START);
-            intent= new Intent(this,Main5Activity.class);
-            startActivity(intent);
-
         }
-
-
+        if (mSelectedId == R.id.navigation_item_3) {
+            mDrawerLayout.closeDrawer(GravityCompat.START);
+            intent = new Intent(this, ThirdActivity.class);
+            startActivity(intent);
+        }
+        if (mSelectedId == R.id.navigation_item_4) {
+            mDrawerLayout.closeDrawer(GravityCompat.START);
+            intent = new Intent(this, FourthActivity.class);
+            startActivity(intent);
+        }
     }
 
     //needs to be called for the drawer toggle
@@ -105,40 +99,33 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+    public boolean onNavigationItemSelected(MenuItem menuItem) {
 
-        item.setChecked(true);
-        mSelectedId=item.getItemId();
+        menuItem.setChecked(true);
+        mSelectedId = menuItem.getItemId();
 
         navigate(mSelectedId);
-
         return true;
     }
 
     @Override
-    protected void onSaveInstanceState(Bundle outState) {   //for remember what item was selected
+    protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-
-        outState.putInt(SELECTED_ITEM_ID,mSelectedId);
+        outState.putInt(SELECTED_ITEM_ID, mSelectedId);
     }
 
     @Override
     public void onBackPressed() {
-        if (mDrawerLayout.isDrawerOpen(GravityCompat.START)){  //checking if the drawer is open and simply closing it
-
+        if (mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
             mDrawerLayout.closeDrawer(GravityCompat.START);
-
-        }else {
-
-            super.onBackPressed();   //default behavior
+        } else {
+            super.onBackPressed();
         }
     }
 
-    private boolean didUserSeeDRawer(){
-
-        SharedPreferences sharedPreferences= PreferenceManager.getDefaultSharedPreferences(this);
-        sharedPreferences.getBoolean(FIRST_TIME,false);
-
+    private boolean didUserSeeDrawer() {
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        mUserSawDrawer = sharedPreferences.getBoolean(FIRST_TIME, false);
         return mUserSawDrawer;
     }
 
@@ -151,11 +138,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         mDrawerLayout.closeDrawer(GravityCompat.START);
     }
 
-    private void markDrawerAsSeen(){  //updating shared preferences that the user has already seen the drawer before
-
-        SharedPreferences sharedPreferences= PreferenceManager.getDefaultSharedPreferences(this);
-        mUserSawDrawer=true;
-        sharedPreferences.edit().putBoolean(FIRST_TIME,mUserSawDrawer).apply();
-
+    private void markDrawerSeen() {
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        mUserSawDrawer = true;
+        sharedPreferences.edit().putBoolean(FIRST_TIME, mUserSawDrawer).apply();
     }
 }
