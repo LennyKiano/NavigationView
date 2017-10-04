@@ -1,5 +1,6 @@
 package com.example.leonk.navigationviewdemo;
 
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -13,6 +14,8 @@ public class SecondActivity extends AppCompatActivity {
     TextInputLayout mEmailLayout,mPasswordLayout;
     EditText emailEditText,passwordEditText;
     RelativeLayout mRoot;  //root layout needed for the snackBar
+    FloatingActionButton mFAB;
+
 
     //listener for the snackBar displayed when fields are empty
 
@@ -20,6 +23,14 @@ public class SecondActivity extends AppCompatActivity {
         @Override
         public void onClick(View v) {
 
+        }
+    };
+
+    private View.OnClickListener mFabClickListerner=new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+
+            Snackbar.make(mRoot,"FAB was clicked",Snackbar.LENGTH_LONG).show();
         }
     };
 
@@ -35,6 +46,9 @@ public class SecondActivity extends AppCompatActivity {
         passwordEditText=(EditText) findViewById(R.id.password_input);
 
         mRoot=(RelativeLayout) findViewById(R.id.root_layout);
+
+        mFAB=(FloatingActionButton) findViewById(R.id.fab);
+        mFAB.setOnClickListener(mFabClickListerner);
 
 
 
